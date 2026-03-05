@@ -1,14 +1,18 @@
 import { test, expect } from '@fixtures/base.fixture';
 
-test.describe('Wikipedia Search Feature @smoke', () => {
-  test('User can search for an article', async ({ homePage, articlePage }) => {
-    await homePage.navigate('/');
-    await homePage.searchFor('Playwright');
+const searchTerms = ['Playwright', 'Selenium', 'Cypress'];
 
-    await articlePage.expectTitleToContain('Playwright');
-    await articlePage.expectUrlToContain('Playwright');
+test.describe('Wikipedia Search Feature @smoke @search', () => {
+  for (const term of searchTerms) {
+    test(`User can search for an article: ${term}`, async ({ homePage, articlePage }) => {
+      await homePage.navigate('/');
+      await homePage.searchFor(term);
 
-    const heading = await articlePage.getHeadingText();
-    expect(heading).toContain('Playwright');
-  });
+      await articlePage.expectTitleToContain(term);
+      await articlePage.expectUrlToContain(term);
+
+      const heading = await articlePage.getHeadingText();
+      expect(heading).toContain(term);
+    });
+  }
 });

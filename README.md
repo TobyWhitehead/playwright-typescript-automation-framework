@@ -37,6 +37,12 @@ npx playwright test
 npx playwright test --project=chromium
 ```
 
+## Run Tags
+
+```bash
+npx playwright test --grep @smoke
+```
+
 ## View Report
 
 ```bash
